@@ -1,0 +1,743 @@
+
+
+Inheritance Lab Challenge
+class MP3:
+  def __init__(self, artist, title, album, length, genre):
+    self.artist = artist
+    self.title = title
+    self.album = album
+    self.length = length
+    self.genre = genre
+    
+  def get_artist(self):
+    return f"The artist is {self.artist}"
+    
+  def get_title(self):
+    return f"The title is {self.title}"
+    
+  def get_album(self):
+    return f"The album is {self.album}"
+    
+  def get_length(self):
+    return f"The length is {self.length}"
+    
+  def get_genre(self):
+    return f"The genre is {self.genre}"
+  
+# child class
+class Podcast(MP3):
+  def __init__(self, name, title, length, genre, date):
+    self.name = name
+    self.title = title
+    self.length = length
+    self.genre = genre
+    self.date = date
+    
+  def get_name(self):
+    return f"The name is {self.name}"
+    
+  def get_date(self):
+    return f"The date is {self.date}"
+    
+  def get_length(self):
+    minutes = self.length // 60
+    seconds = self.length % 60
+    return f"The length is {minutes} minutes and {seconds} seconds"
+p = Podcast("Planet Money", "Hollywood's Black List", 1460, "economics", "10 July 2020")
+print(p.get_name()) 
+print(p.get_title())
+print(p.get_length()) 
+print(p.get_genre())  
+print(p.get_date())
+
+
+Inheritance Exercise 1
+________________________________________
+Exercise 1
+
+class CelestialBody:
+  def __init__(self, size, mass, composition, name):
+    self.size = size
+    self.mass = mass
+    self.composition = composition
+    self.name = name
+    
+# create the satellite class
+class Satellite(CelestialBody):
+  def __init__(self, size, mass, composition, name, host_planet):
+    super().__init__(size, mass, composition, name)
+    self.host_planet = host_planet
+
+# create the planet class
+class Planet(CelestialBody):
+  def __init__(self, size, mass, composition, name, host_star):
+    super().__init__(size, mass, composition, name)
+    self.host_star = host_star
+
+
+
+Inheritance Exercise 2
+________________________________________
+Exercise 2
+class Book:
+  def __init__(self, title, author, pages, genre):
+    self.title = title
+    self.author = author
+    self.genre = genre
+
+# child class
+class BlogPost(Book):
+  def __init__(self, website, title, author, word_count, genre, page_views):
+    super().__init__(title, author, genre)
+    self.website = website
+    self.word_count = word_count
+    self.page_views = page_views
+
+
+
+
+Inheritance Exercise 3
+________________________________________
+Exercise 3
+class Parent1:
+  def identify(self):
+    return "This method is called from Parent1"
+    
+class Parent2:
+  def identify(self):
+    return "This method is called from Parent2"
+    
+# declare child class here
+class Child(Parent2, Parent1):
+  def identify(self):
+    return "This method is called from Child"
+  
+  def identify2(self):
+    return super().identify()
+child_object = Child()
+child_object.identify()
+child_object.identify2()
+
+
+
+Inheritance Exercise 4
+________________________________________
+Exercise 4
+# DO NOT ALTER THIS CODE
+import sys
+strings = [l.split(",") for l in sys.argv[1].split("*")]
+accounts = [[int(n) for n in s] for s in strings]
+
+class Bank:
+  def __init__(self, name, customers, accounts):
+    self.name = name
+    self.customers = customers
+    self.accounts = accounts
+    
+  def branch_total(self, accounts):
+    total = 0
+    for account in accounts:
+      total += account
+    return total
+
+# Write your code here
+class RegionalBank(Bank):
+  def regional_total(self):
+    total = 0
+    for account in accounts:
+      total += self.branch_total(account)
+    return total
+  
+my_bank = RegionalBank("Bank of America", 9, accounts)
+print(my_bank.regional_total())
+
+
+Inheritance Exercise 5
+________________________________________
+Exercise 5
+# parent classes
+class Person:
+  def __init__(self, name, address):
+    self.name = name
+    self.address = address
+    
+  def get_info(self):
+    return f"{self.name} lives at {self.address}."
+  
+class CardHolder:
+  def __init__(self, account_number):
+    self.account_number = account_number
+    self.balance = 0
+    self.credit_limit = 5000
+    
+  def process_sale(self, price):
+    self.balance += price
+    
+  def make_payment(self, amount):
+    self.balance -= amount
+    
+# declare child class here
+class PlatinumClient(Person, CardHolder):
+  def __init__(self, name, address, account_number):
+    Person.__init__(self, name, address)
+    CardHolder.__init__(self, account_number)
+    self.cash_back = 0.02
+    self.rewards = 0
+    
+  def process_sale(self, price):
+    self.balance += price
+    self.rewards += self.cash_back * price
+platinum = PlatinumClient("Sarah", "101 Main Street", 123364)
+platinum.process_sale(100)  
+print(platinum.rewards) 
+print(platinum.balance) 
+platinum.make_payment(50) 
+print(platinum.balance) 
+print(platinum.get_info())  
+
+
+
+
+
+
+
+Encapsulation Exercise 1
+________________________________________
+Exercise 1
+class Country:
+  def __init__(self, name, capital, population, continent):
+    self._name = name
+    self._capital = capital
+    self._population = population
+    self._continent = continent
+my_country = Country('France', 'Paris', 67081000, 'Europe')
+print(my_country._name)
+print(my_country._capital)
+print(my_country._population)
+print(my_country._continent)
+
+
+Encapsulation Exercise 2
+________________________________________
+Exercise 2
+
+
+class Artist:
+  def __init__(self, name, medium, style, famous_artwork):
+    self._name = name
+    self._medium = medium
+    self._style = style
+    self._famous_artwork = famous_artwork
+
+my_artist = Artist('Bill Watterson', 'ink and paper', 'cartoons', 'Calvin and Hobbes')
+print(my_artist._name)
+print(my_artist._medium)
+print(my_artist._style)
+print(my_artist._famous_artwork)
+
+Encapsulation Exercise 3
+________________________________________
+Exercise 3
+class BankAccount():
+  def __init__(self):
+    self._checking = 0
+    self._savings = 0
+    
+  def get_checking(self):
+    return self._checking
+  
+  def set_checking(self, new_value):
+    self._checking = new_value
+    
+  def get_savings(self):
+    return self._savings
+  
+  def set_savings(self, new_value):
+    self._savings = new_value
+my_account = BankAccount()
+my_account.set_checking(523.48) 
+print(my_account.get_checking())  
+my_account.set_savings(386.15)
+print(my_account.get_savings())
+
+Encapsulation Exercise 4
+________________________________________
+Exercise 4
+class Dancer:
+  def __init__(self, name, nationality, style):
+    self._name = name
+    self._nationality = nationality
+    self._style = style
+    
+  def get_name(self):
+    return self._name
+  
+  def set_name(self, new_value):
+    self._name = new_value
+    
+  def get_nationality(self):
+    return self._nationality
+  
+  def set_nationality(self, new_value):
+    self._nationality = new_value
+    
+  def get_style(self):
+    return self._style
+  
+  def set_style(self, new_value):
+    self._style = new_value
+    
+  name = property(get_name, set_name)
+  nationality = property(get_nationality, set_nationality)
+  style = property(get_style, set_style)
+my_dancer = Dancer("Savion Glover", "American", "tap")
+print(my_dancer.name) #Savion Glover
+print(my_dancer.nationality)  #American
+print(my_dancer.style)  #tap
+my_dancer.name = 'Anna Pavlova' #N/A
+my_dancer.nationality = 'Russian' #N/A
+my_dancer.style = 'ballet'  #N/A
+print(my_dancer.name) #Anna Pavlova
+print(my_dancer.nationality)  #Russian
+print(my_dancer.style)
+
+Encapsulation Exercise 5
+________________________________________
+Exercise 5
+
+class Cyclist:
+  def __init__(self, name, nationality, nickname):
+    self._name = name
+    self._nationality = nationality
+    self._nickname = nickname
+    
+  @property
+  def name(self):
+    return self._name
+  
+  @name.setter
+  def name(self, new_value):
+    self._name = new_value
+    
+  @property
+  def nationality(self):
+    return self._nationality
+  
+  @nationality.setter
+  def nationality(self, new_value):
+    self._nationality = new_value
+    
+  @property
+  def nickname(self):
+    return self._nickname
+  
+  @nickname.setter
+  def nickname(self, new_value):
+    self._nickname = new_value
+my_cyclist = Cyclist("Greg LeMond", "American", "Le Montstre")
+print(my_cyclist.name)  
+print(my_cyclist.nationality) 
+print(my_cyclist.nickname)
+my_cyclist.name = "Eddy Merckx"
+my_cyclist.nationality = "Belgian"  
+my_cyclist.nickname = "The Cannibal"  
+print(my_cyclist.name)  
+print(my_cyclist.nationality) 
+print(my_cyclist.nickname)
+
+
+Polymorphism Exercise 1
+________________________________________
+Exercise 1
+import random
+
+class Lottery:
+  def shuffle(self):
+    results = []
+    for i in range(5):
+      results.append(random.randint(1, 20))
+    return results
+
+class PowerBall(Lottery):
+  def shuffle(self):
+    results = []
+    for i in range(6):
+      results.append(random.randint(1, 99))
+    return results
+p = PowerBall()
+print(p.shuffle())
+
+Polymorphism Exercise 2
+________________________________________
+Exercise 2
+
+class Airplane:
+  def __init__(self, first_class, business_class, coach):
+    self.first_class = first_class
+    self.business_class = business_class
+    self.coach = coach
+    
+  def total(self):
+    return self.first_class + self.business_class + self.coach
+  
+class Train:
+  def __init__(self, car1, car2, car3, car4, car5):
+    self.car1 = car1
+    self.car2 = car2
+    self.car3 = car3
+    self.car4 = car4
+    self.car5 = car5
+    
+  def total(self):
+    return self.car1 + self.car2 + self.car3 + self.car4 + self.car5
+  
+  def passengers(obj):
+    print(f'There are {obj.total()} passengers on board.')
+t = Train(1,2,3,4,5)
+print(t.passengers())
+
+Polymorphism Exercise 3
+________________________________________
+Exercise 3
+class Characters:
+  def __init__(self, phrases):
+    self.phrases = phrases
+    
+  def total_characters(self):
+    total = 0
+    for phrase in self.phrases:
+      total += len(phrase)
+    return total  
+    
+  def __gt__(self, obj):
+    return self.total_characters() > obj.total_characters()
+  
+  def __lt__(self, obj):
+    return self.total_characters() < obj.total_characters()
+  
+  def __eq__(self, obj):
+    return self.total_characters() == obj.total_characters()
+
+sample_phrases1 = ['cat in the hat', 'green eggs and ham', 'the lorax']
+sample_phrases2 = ['the taming of the shrew', 'hamlet', 'othello']
+
+c1 = Characters(sample_phrases1)
+c2 = Characters(sample_phrases2)
+print(c1 > c2) # prints 'True'
+print(c1 < c2) # prints 'False'
+print(c1 == c1) # prints 'True'
+
+
+Polymorphism Exercise 4
+________________________________________
+Exercise 4
+class Median:
+  def calculate_median(self, n1, n2, n3=None, n4=None, n5=None):
+    if n3 is not None and n4 is not None and n5 is not None:
+      numbers = [n1, n2, n3, n4, n5]
+    elif n3 is not None and n4 is not None:
+      numbers = [n1, n2, n3, n4]
+    elif n3 is not None:
+      numbers = [n1, n2, n3]
+    else:
+      numbers = [n1, n2]
+    
+    numbers.sort()
+    median_index = len(numbers) // 2
+    if len(numbers) % 2 == 0:
+      median = (numbers[median_index] + numbers[median_index - 1]) / 2
+    else:
+      median = numbers[median_index]
+    return median
+m = Median()
+print(m.calculate_median(3,5,1,4,2))
+print(m.calculate_median(8,6,4,2))
+print(m.calculate_median(9,3,7))
+print(m.calculate_median(5,2))
+
+Polymorphism Exercise 5
+________________________________________
+Exercise 5
+source_file = '/home/codio/workspace/code/polymorphism/text_1_exercise5.txt'
+answer_file = '/home/codio/workspace/code/polymorphism/answer_exercise5.txt'
+
+class Substitute:
+  def __init__(self, source_file, answer_file):
+    self.source_file = source_file
+    self.answer_file = answer_file
+    self.words = None
+    
+  def string_to_list(self):
+    '''Read text file, turn it into a
+    2D list of words for each line'''
+    words = []
+    with open(self.source_file, 'r') as file_object:
+      lines = file_object.read().split('\n')
+      for line in lines:
+        words.append(line.split())
+    self.words = words
+    
+  def list_to_string(self):
+    '''Convert 2D list back into a 
+    string with newline characters'''
+    lines = []
+    for line in self.words:
+      lines.append(' '.join(line))
+    string = '\n'.join(lines)
+    self.words = string
+  
+  def swap_words(self):
+    self.string_to_list()
+    for line in self.words:
+      for i in range(len(line)):
+        if (i + 1) % 5 == 0:
+          word = line[i]
+          line[i] = 'HELLO'
+    self.list_to_string()
+
+class Stars(Substitute):
+  def swap_words(self):
+    self.string_to_list()
+    for line in self.words:
+      for i in range(len(line)):
+        if (i + 1) % 3 == 0:
+          word = line[i]
+          line[i] = '*' * len(word)
+    self.list_to_string()
+    file = open(self.answer_file, 'w')
+    file.writelines(self.words)
+    file.close()
+    
+s = Stars(source_file, answer_file)
+s.swap_words()
+
+
+Advanced Topics Exercise 1
+________________________________________
+Exercise 1
+import tech
+
+my_phone = tech.Phone('Pixel 5', 'sage', 128)
+my_laptop = tech.Laptop('MacBook Pro', 15, 256)
+
+print(my_phone)
+print(my_laptop)
+
+
+Advanced Topics Exercise 2
+________________________________________
+Exercise 2
+class Band:
+  def __init__(self, name, genre, members):
+    self.name = name
+    self.genre = genre
+    self.members = members
+    
+  def __str__(self):
+    return f'{self.name} is a {self.genre} band.'
+  
+  def __repr__(self):
+    return f'Band({self.name}, {self.genre}, {self.members})'
+dead = Band('The Grateful Dead', 'rock\'n roll', ['Jerry', 'Bob', 'Mickey', 'Bill', 'Phil', 'Pigpen'])
+print(dead)
+print(repr(dead))
+
+
+
+Advanced Topics Exercise 3
+________________________________________
+Exercise 3
+class Dog:
+  def __init__(self, name, breed):
+    self.name = name
+    self.breed = breed
+    
+dogs = []
+dogs.append(Dog('Marceline', 'German Shepherd'))
+dogs.append(Dog('Cajun', 'Belgian Malinois'))
+dogs.append(Dog('Daisy', 'Border Collie'))
+dogs.append(Dog('Rocky', 'Golden Retriever'))
+dogs.append(Dog('Bella', 'Irish Setter'))
+
+
+Advanced Topics Exercise 4
+________________________________________
+Exercise 4
+
+Book.py:
+
+
+
+from library import Library
+class Book:
+  def __init__(self, title, author, genre):
+    self.author = author
+    self.title = title
+    self.genre = genre
+    
+  def __repr__(self):
+    return f'Book({self.title}, {self.author}, {self.genre})'
+
+
+
+Library.py:
+
+
+class Library:
+  def __init__(self):
+    self.books = []
+    self.fiction = []
+    self.nonfiction = []
+    
+  def add_book(self, book):
+    '''Takes a Book object and adds it to self.books'''
+    self.books.append(book)
+    
+  def search_title(self, title):
+    '''Takes a string and returns a Boolean'''
+    has_book = False
+    for book in self.books:
+      if title.lower() == book.title.lower():
+        has_book = True
+    return has_book
+  
+  def search_author(self, author):
+    '''Takes a string and returns a list of Book objects'''
+    author_books = []
+    for book in self.books:
+      if book.author.lower() == author.lower():
+        author_books.append(book)
+    return author_books
+    
+  def sort_books(self):
+    '''Helper method for sort_fiction and sort_nonfiction'''
+    self.fiction = self.sort_fiction()
+    self.nonfiction = self.sort_nonfiction()
+    
+  def sort_fiction(self):
+    '''Return list of Book objects where the genre is fiction'''
+    fiction_books = []
+    for book in self.books:
+      if book.genre.lower() == 'fiction':
+        fiction_books.append(book)
+    return fiction_books
+    
+  def sort_nonfiction(self):
+    '''Return list of Book objects where the genre is nonfiction'''
+    nonfiction_books = []
+    for book in self.books:
+      if book.genre.lower() == 'nonfiction':
+        nonfiction_books.append(book)
+    return nonfiction_books
+
+from book import Book
+
+library = Library()
+book1 = Book('Three Musketeers', 'Alexandre Dumas', 'fiction')
+book2 = Book('The Count of Monte Cristo', 'Alexandre Dumas', 'fiction')
+book3 = Book('Educated', 'Tara Westover', 'nonfiction')
+
+library.add_book(book1)
+library.add_book(book2)
+library.add_book(book3)
+library.sort_books()
+print(library.books)
+print(library.fiction)
+print(library.nonfiction)
+print(library.search_author('Alexandre Dumas'))
+print(library.search_author('Herman Melville'))
+print(library.search_title('Educated'))
+print(library.search_title('Moby Dick'))
+
+
+
+Exercise4.py:
+
+
+
+from library import Library
+from book import Book
+
+
+Advanced Topics Exercise 5
+________________________________________
+Exercise 5
+
+
+
+shopping_cart.py:
+
+class ShoppingCart:
+  def __init__(self):
+    self.items = []
+    self.total = 0
+    
+  def add_item(self, item):
+    self.items.append(item)
+    self.calculate_total()
+    
+  def calculate_total(self):
+    self.total = 0
+    for item in self.items:
+      item.calculate_subtotal()
+      self.total += item.get_subtotal()
+      
+  def get_total(self):
+    return self.total
+  
+  def get_num_items(self):
+    return len(self.items)
+  
+  def get_items(self):
+    return self.items
+  
+  def __str__(self):
+    return f'The cart has {self.get_num_items()} items for a total of ${self.total}'
+
+Item.py:
+
+class Item:
+  def __init__(self, name, price, quantity):
+    self.name = name
+    self.price = price
+    self.quantity = quantity
+    self.subtotal = 0
+    
+  def calculate_subtotal(self):
+    self.subtotal = self.quantity * self.price
+    
+  def get_subtotal(self):
+    return self.subtotal
+  
+  def __repr__(self):
+    return f'Item({self.name}, {self.price}, {self.quantity}, {self.subtotal})'
+
+
+
+
+
+
+Exercise5.py:
+
+from item import Item
+from shopping_cart import ShoppingCart
+
+item1 = Item('milk', 1.5, 1)
+item2 = Item('apple', 5, 0.75)
+item3 = Item('bread', 2, 2.25)
+cart = ShoppingCart()
+
+cart.add_item(item1)
+cart.add_item(item2)
+cart.add_item(item3)
+print(cart.get_total())
+print(cart.get_num_items())
+print(cart)
+print(cart.get_items())
+
+
+
+
+
+
+
